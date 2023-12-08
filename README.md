@@ -27,7 +27,10 @@
 - Update store with trailer video
 - Embedded YT Video and make it play and mute
 - Tailwind to look it nice
-- 
+- Build Secondary container
+- Build Movie List
+- Build Movie Card
+- Made nice secondary container using tailwind css
 -
 
 # Features
