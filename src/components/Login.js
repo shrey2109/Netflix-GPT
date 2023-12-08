@@ -7,13 +7,12 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { auth } from "../utils/firebase";
-import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
+import { USER_AVATAR } from "../utils/constants";
 
 const Login = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const [isSignInForm, setIsSignInForm] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
 
@@ -47,13 +46,13 @@ const Login = () => {
             .then(() => {
               // const { uid, email, displayName } = user;
               const { uid, email, displayName } = auth.currentUser;
-              dispatch(addUser({ uid: uid, email: email, displayName: displayName }));
-              navigate("/browse");
+              dispatch(
+                addUser({ uid: uid, email: email, displayName: displayName })
+              );
             })
             .catch((error) => {
               setErrorMessage(error.errorMessage);
             });
-          console.log(user);
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -69,8 +68,6 @@ const Login = () => {
       )
         .then((userCredential) => {
           const user = userCredential.user;
-          console.log(user);
-          navigate("/browse");
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -88,11 +85,7 @@ const Login = () => {
     <div>
       <Header />
       <div className="absolute">
-        <img
-          src="https://th.bing.com/th/id/R.d2edb29f3f970c36aadecbb01ed0bb79?rik=z%2bAuuobpN0KNSg&riu=http%3a%2f%2fisquad.tv%2fwp-content%2fuploads%2f2018%2f08%2fNetflix-Background.jpg&ehk=Ij4PSd%2bZkTcESSlAVWoGpNmExM0fu3BgteNT6AnS9lM%3d&risl=&pid=ImgRaw&r=0"
-          alt="background"
-          className="brightness-50"
-        ></img>
+        <img src={USER_AVATAR} alt="background" className="brightness-50"></img>
       </div>
       <form
         // onClick of any form button it calls onSubmit method, which we did not written, so page is refreshing

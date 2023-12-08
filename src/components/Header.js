@@ -1,42 +1,70 @@
-import React from "react";
-import { signOut } from "firebase/auth";
+import React, { useEffect } from "react";
+import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "../utils/firebase";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { addUser, removeUser } from "../utils/userSlice";
+import { LOGO } from "../utils/constants";
 
 const Header = () => {
+  const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
   const navigate = useNavigate();
   const handleSignOut = () => {
     signOut(auth)
-      .then(() => {
-        // no dispatch as it is handled by onAuthStateChanged
-        navigate("/");
-      })
+      .then(() => {})
       .catch((error) => {
         navigate("/error");
       });
   };
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        //* User is signed in
+        const { uid, email, displayName } = user;
+        dispatch(addUser({ uid: uid, email: email, displayName: displayName }));
+        navigate("/browse");
+      } else {
+        //* User is signed out
+        dispatch(removeUser());
+        navigate("/");
+      }
+
+      //! When Header component unmounts, we have to unsubscribe onAuthStateChanged, so this returns unsubscribe function, so in return we are calling it.
+      return unsubscribe();
+    });
+  }, []);
+
   return (
-    <div className="absolute z-10 w-full flex justify-between">
-      <img
-        src="https://cdn.cookielaw.org/logos/dd6b162f-1a32-456a-9cfe-897231c7763c/4345ea78-053c-46d2-b11e-09adaef973dc/Netflix_Logo_PMS.png"
-        alt="logo"
-        className="h-[90px] ml-7 z-10"
-      ></img>
-      {user && <div className="p-2 mr-8 flex flex-col items-center">
-        <div className="flex items-center">
-          <img
-            src="https://cloud27designco.com/wp-content/uploads/2020/04/C27_Logo_Icon-min-org_wht-800x800.png"
-            alt="userImg"
-            className="h-11"
-          ></img>
-          <h1 className="ml-1 font-medium text-purple-600">Welcome, {user?.displayName}</h1>
+    <div className="absolute z-10 w-full flex justify-between bg-gradient-to-b from-black">
+      <img src={LOGO} alt="logo" className="h-[75px] ml-7 z-10"></img>
+      {user && (
+        <div className="p-2 mr-8 flex flex-col items-center">
+          <div className="flex items-center">
+            <img
+              src="https://cloud27designco.com/wp-content/uploads/2020/04/C27_Logo_Icon-min-org_wht-800x800.png"
+              alt="userImg"
+              className="h-11"
+            ></img>
+
+            <div className="">
+              <h1 className="ml-1 font-medium text-purple-600">
+                Welcome, {user?.displayName}
+              </h1>
+              <button
+                className="font-bold text-red-500 mx-3"
+                onClick={handleSignOut}
+              >
+                Sign Out
+              </button>
+            </div>
+          </div>
+          {/* <button className="font-bold text-red-500" onClick={handleSignOut}>
+            Sign Out
+          </button> */}
         </div>
-        <button className="font-bold text-red-500" onClick={handleSignOut}>
-          Sign Out
-        </button>
-      </div>}
+      )}
     </div>
   );
 };
