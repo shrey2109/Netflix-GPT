@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addUser, removeUser } from "../utils/userSlice";
 import { LOGO } from "../utils/constants";
+import { toggleGptSearchView } from "../utils/gptSlice";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -31,10 +32,14 @@ const Header = () => {
         navigate("/");
       }
 
-      //! When Header component unmounts, we have to unsubscribe onAuthStateChanged, so this returns unsubscribe function, so in return we are calling it.
       return unsubscribe();
     });
   }, []);
+
+  const handleGptSearchClick = () => {
+    // toggle functionality for gpt search page
+    dispatch(toggleGptSearchView());
+  };
 
   return (
     <div className="absolute z-10 w-full flex justify-between bg-gradient-to-b from-black">
@@ -42,6 +47,12 @@ const Header = () => {
       {user && (
         <div className="p-2 mr-8 flex flex-col items-center">
           <div className="flex items-center">
+            <button
+              className="m-2 p-2 w-52 font-semibold rounded-lg bg-purple-600 text-white"
+              onClick={handleGptSearchClick}
+            >
+              GPT Search
+            </button>
             <img
               src="https://cloud27designco.com/wp-content/uploads/2020/04/C27_Logo_Icon-min-org_wht-800x800.png"
               alt="userImg"
@@ -49,7 +60,7 @@ const Header = () => {
             ></img>
 
             <div className="">
-              <h1 className="ml-1 font-medium text-purple-600">
+              <h1 className="ml-1 font-bold text-purple-400">
                 Welcome, {user?.displayName}
               </h1>
               <button
@@ -60,9 +71,6 @@ const Header = () => {
               </button>
             </div>
           </div>
-          {/* <button className="font-bold text-red-500" onClick={handleSignOut}>
-            Sign Out
-          </button> */}
         </div>
       )}
     </div>

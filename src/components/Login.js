@@ -9,7 +9,7 @@ import {
 import { auth } from "../utils/firebase";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
-import { USER_AVATAR } from "../utils/constants";
+import { BG_URL } from "../utils/constants";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -85,7 +85,7 @@ const Login = () => {
     <div>
       <Header />
       <div className="absolute">
-        <img src={USER_AVATAR} alt="background" className="brightness-50"></img>
+        <img src={BG_URL} alt="background" className="brightness-50"></img>
       </div>
       <form
         // onClick of any form button it calls onSubmit method, which we did not written, so page is refreshing
