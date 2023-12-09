@@ -31,8 +31,13 @@
 - Build Movie List
 - Build Movie Card
 - Made nice secondary container using tailwind css
-- GPT Search
+- GPT Search 
+- GPT Search Page
+- GPT Search bar
+- Multi-language feature 
 -
+
+
 
 # Features
 

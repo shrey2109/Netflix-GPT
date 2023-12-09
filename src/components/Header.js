@@ -4,12 +4,14 @@ import { auth } from "../utils/firebase";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addUser, removeUser } from "../utils/userSlice";
-import { LOGO } from "../utils/constants";
+import { LOGO, SUPPORTED_LANGUAGES } from "../utils/constants";
 import { toggleGptSearchView } from "../utils/gptSlice";
+import { changeLanguage } from "../utils/configSlice";
 
 const Header = () => {
   const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
+  const gptPage = useSelector((store) => store.gpt.showGptSearch);
   const navigate = useNavigate();
   const handleSignOut = () => {
     signOut(auth)
@@ -41,17 +43,33 @@ const Header = () => {
     dispatch(toggleGptSearchView());
   };
 
+  const handleLanguageChange = (e) => {
+    dispatch(changeLanguage(e.target.value));
+  };
+
   return (
     <div className="absolute z-10 w-full flex justify-between bg-gradient-to-b from-black">
       <img src={LOGO} alt="logo" className="h-[75px] ml-7 z-10"></img>
       {user && (
         <div className="p-2 mr-8 flex flex-col items-center">
           <div className="flex items-center">
+            {gptPage && (
+              <select
+                className="p-1.5 m-2 rounded-md bg-purple-950 text-white"
+                onChange={handleLanguageChange}
+              >
+                {SUPPORTED_LANGUAGES.map((lang) => (
+                  <option key={lang.identifier} value={lang.identifier}>
+                    {lang.name}
+                  </option>
+                ))}
+              </select>
+            )}
             <button
               className="m-2 p-2 w-52 font-semibold rounded-lg bg-purple-600 text-white"
               onClick={handleGptSearchClick}
             >
-              GPT Search
+              {gptPage ? "Home Page" : "GPT Search"}
             </button>
             <img
               src="https://cloud27designco.com/wp-content/uploads/2020/04/C27_Logo_Icon-min-org_wht-800x800.png"
