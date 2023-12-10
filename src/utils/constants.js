@@ -20,3 +20,5 @@ export const SUPPORTED_LANGUAGES = [
   { identifier: "hin", name: "हिंदी" },
   { identifier: "guj", name: "ગુજરાતી" },
 ];
+
+export const OPENAI_KEY = "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";
