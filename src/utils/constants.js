@@ -4,6 +4,9 @@ export const LOGO =
 export const BG_URL =
   "https://th.bing.com/th/id/R.d2edb29f3f970c36aadecbb01ed0bb79?rik=z%2bAuuobpN0KNSg&riu=http%3a%2f%2fisquad.tv%2fwp-content%2fuploads%2f2018%2f08%2fNetflix-Background.jpg&ehk=Ij4PSd%2bZkTcESSlAVWoGpNmExM0fu3BgteNT6AnS9lM%3d&risl=&pid=ImgRaw&r=0";
 
+export const USER_PROFILE =
+  "https://cloud27designco.com/wp-content/uploads/2020/04/C27_Logo_Icon-min-org_wht-800x800.png";
+
 export const API_OPTIONS = {
   method: "GET",
   headers: {
@@ -21,4 +24,83 @@ export const SUPPORTED_LANGUAGES = [
   { identifier: "guj", name: "ગુજરાતી" },
 ];
 
-export const OPENAI_KEY = "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";
+export const MOVIE_GENRE_LIST = {
+  genres: [
+    {
+      id: 28,
+      name: "Action",
+    },
+    {
+      id: 12,
+      name: "Adventure",
+    },
+    {
+      id: 16,
+      name: "Animation",
+    },
+    {
+      id: 35,
+      name: "Comedy",
+    },
+    {
+      id: 80,
+      name: "Crime",
+    },
+    {
+      id: 99,
+      name: "Documentary",
+    },
+    {
+      id: 18,
+      name: "Drama",
+    },
+    {
+      id: 10751,
+      name: "Family",
+    },
+    {
+      id: 14,
+      name: "Fantasy",
+    },
+    {
+      id: 36,
+      name: "History",
+    },
+    {
+      id: 27,
+      name: "Horror",
+    },
+    {
+      id: 10402,
+      name: "Music",
+    },
+    {
+      id: 9648,
+      name: "Mystery",
+    },
+    {
+      id: 10749,
+      name: "Romance",
+    },
+    {
+      id: 878,
+      name: "Science Fiction",
+    },
+    {
+      id: 10770,
+      name: "TV Movie",
+    },
+    {
+      id: 53,
+      name: "Thriller",
+    },
+    {
+      id: 10752,
+      name: "War",
+    },
+    {
+      id: 37,
+      name: "Western",
+    },
+  ],
+};

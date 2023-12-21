@@ -35,9 +35,13 @@
 - GPT Search Page
 - GPT Search bar
 - Multi-language feature
-- (TILL NOW, UNTIL THIS COMMIT) => Open Ai api data fetching code is done, but the billing cycle is off, so not searching any data.
+- (PREVIOUS COMMIT) => Open Ai api data fetching code is done, but the billing cycle is off, so not searching any data.
   (FURTHER CHANGING THE PROJECT DIRECTION TO COMPLETE THE PROJECT)
+  (*** WITH PREVIOUS COMMIT, OpenAi KEY DISABLED ***)
 -
+- 
+- 
+
 
 # Features
 

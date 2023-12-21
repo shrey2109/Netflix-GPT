@@ -8,7 +8,7 @@ const GptSearch = () => {
     // <div className="h-screen bg-gradient-to-b from-purple-300">
     <div className="">
       <div className="absolute -z-10 ">
-        <img src={BG_URL} alt="background" className="brightness-50"></img>
+        <img src={BG_URL} alt="background" className="brightness-50 fixed"></img>
       </div>
       <GptSearchBar />
       <GptMovieSuggestions />

@@ -4,7 +4,7 @@ import { auth } from "../utils/firebase";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addUser, removeUser } from "../utils/userSlice";
-import { LOGO, SUPPORTED_LANGUAGES } from "../utils/constants";
+import { LOGO, SUPPORTED_LANGUAGES, USER_PROFILE } from "../utils/constants";
 import { toggleGptSearchView } from "../utils/gptSlice";
 import { changeLanguage } from "../utils/configSlice";
 
@@ -34,7 +34,7 @@ const Header = () => {
         navigate("/");
       }
 
-      return unsubscribe();
+      // return unsubscribe();
     });
   }, []);
 
@@ -72,7 +72,7 @@ const Header = () => {
               {gptPage ? "Home Page" : "GPT Search"}
             </button>
             <img
-              src="https://cloud27designco.com/wp-content/uploads/2020/04/C27_Logo_Icon-min-org_wht-800x800.png"
+              src={USER_PROFILE}
               alt="userImg"
               className="h-11"
             ></img>
