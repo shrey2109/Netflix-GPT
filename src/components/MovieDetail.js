@@ -18,7 +18,7 @@ const MovieDetail = () => {
       API_OPTIONS
     );
     const json = await data.json();
-    console.log(json);
+    // console.log(json);
     setMovieDetails(json);
 
     const similardata = await fetch(
@@ -26,7 +26,7 @@ const MovieDetail = () => {
       API_OPTIONS
     );
     const similarjson = await similardata.json();
-    console.log(similarjson);
+    // console.log(similarjson);
     setSimilarMovieDetails(similarjson?.results);
   };
 
@@ -40,14 +40,14 @@ const MovieDetail = () => {
               "https://image.tmdb.org/t/p/original/" +
               movieDetails.backdrop_path
             }
-            className="absolute -z-10 w-full"
+            className="absolute -z-10 w-full h-screen object-cover md:h-auto"
           ></img>
         )}
       </div>
-      <div className="pt-20 text-white w-full aspect-video bg-gradient-to-r from-black to-70% ">
+      <div className="pt-10 md:pt-20 text-white w-full h-screen aspect-video bg-gradient-to-r from-black to-70% ">
         <div className="m-12">
-          <h1 className="text-5xl font-bold w-5/12">{movieDetails.title}</h1>
-          <div className="pt-6 text-lg">
+          <h1 className="md:text-5xl text-2xl font-bold w-1/2 md:w-5/12">{movieDetails.title}</h1>
+          <div className="pt-6 md:text-lg">
             {movieDetails?.release_date?.slice(0, 4) + " • "}
             {Math.floor(movieDetails?.runtime / 60)}h{" "}
             {movieDetails?.runtime -
@@ -57,18 +57,18 @@ const MovieDetail = () => {
               ?.map((lang) => lang.english_name)
               .join(" | ")}
           </div>
-          <p className="pt-3 text-[16px] w-[30%] text-zinc-400">
+          <p className="pt-3 text-[16px] md:w-[30%] text-zinc-400">
             {movieDetails.overview}
           </p>
 
-          <div className="py-2 text-lg">
+          <div className="py-2 md:text-lg">
             {movieDetails?.genres?.map((genre) => genre.name).join(" | ")}
           </div>
           <div>
-            <button className="m-2 p-3 w-72 bg-white text-black rounded-sm font-bold text-lg">
+            <button className="m-2 p-1.5 px-3 md:p-3 md:w-72 bg-white text-black rounded-sm font-bold md:text-lg">
               ▷ Play
             </button>
-            <button className="m-2 pt-1 pb-3.5 bg-gray-500 bg-opacity-60 w-14 rounded-md text-white font-semibold text-3xl">
+            <button className="hidden md:inline-block m-2 pt-1 pb-3.5 bg-gray-500 bg-opacity-60 w-14 rounded-md text-white font-semibold text-3xl">
               +
             </button>
           </div>

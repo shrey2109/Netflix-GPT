@@ -6,6 +6,8 @@ const movieSuggestionSlice = createSlice({
   initialState: {
     genreList: null,
     movieList: null,
+    movieName: "",
+    movieListByName: null,
   },
   reducers: {
     addGenre: (state, action) => {
@@ -14,9 +16,15 @@ const movieSuggestionSlice = createSlice({
     addSuggestedMovies: (state, action) => {
       state.movieList = action.payload;
     },
+    addMovieName: (state, action) => {
+      state.movieName = action.payload;
+    },
+    addMovieListByName: (state, action) => {
+      state.movieListByName = action.payload;
+    }
   },
 });
 
-export const { addGenre, addSuggestedMovies } = movieSuggestionSlice.actions;
+export const { addGenre, addSuggestedMovies, addMovieName, addMovieListByName } = movieSuggestionSlice.actions;
 
 export default movieSuggestionSlice.reducer;
