@@ -18,7 +18,7 @@ const MovieDetail = () => {
       API_OPTIONS
     );
     const json = await data.json();
-    // console.log(json);
+    console.log(json);
     setMovieDetails(json);
 
     const similardata = await fetch(
@@ -37,8 +37,9 @@ const MovieDetail = () => {
           <img
             alt="movieBg"
             src={
-              "https://image.tmdb.org/t/p/original/" +
-              movieDetails.backdrop_path
+              movieDetails.backdrop_path ?
+                "https://image.tmdb.org/t/p/original/" + movieDetails.backdrop_path
+                : "https://c8.alamy.com/comp/2RJ4F9E/film-slate-movie-clapper-board-on-yellow-background-with-shadow-and-copy-space-2RJ4F9E.jpg"
             }
             className="absolute -z-10 w-full h-screen object-cover md:h-auto"
           ></img>
@@ -46,7 +47,9 @@ const MovieDetail = () => {
       </div>
       <div className="pt-10 md:pt-20 text-white w-full h-screen aspect-video bg-gradient-to-r from-black to-70% ">
         <div className="m-12">
-          <h1 className="md:text-5xl text-2xl font-bold w-1/2 md:w-5/12">{movieDetails.title}</h1>
+          <h1 className="md:text-5xl text-2xl font-bold w-1/2 md:w-5/12">
+            {movieDetails.title}
+          </h1>
           <div className="pt-6 md:text-lg">
             {movieDetails?.release_date?.slice(0, 4) + " • "}
             {Math.floor(movieDetails?.runtime / 60)}h{" "}

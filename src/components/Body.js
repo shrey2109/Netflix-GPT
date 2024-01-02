@@ -4,6 +4,7 @@ import Login from "./Login";
 import Browse from "./Browse";
 import MovieDetail from "./MovieDetail";
 import ErrorPage from "./ErrorPage";
+import Shimmer from "./Shimmer";
 // import GptSearch from "./GptSearch";
 
 //* Previous routing
@@ -45,7 +46,7 @@ const appRouter = createBrowserRouter([
     path: "/search",
     // element: <GptSearch />,
     element: (
-      <Suspense fallback={<h1>Loading...</h1>}>
+      <Suspense fallback={<Shimmer />}>
         <GptSearch />,
       </Suspense>
     ),

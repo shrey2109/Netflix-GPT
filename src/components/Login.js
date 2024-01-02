@@ -87,11 +87,15 @@ const Login = () => {
       <div className="absolute">
         <img src={BG_URL} alt="background" className="brightness-50 h-screen object-cover w-screen"></img>
       </div>
+
+      {/* <div> */}
+      <div className="flex items-center justify-center h-screen">
       <form
         // onClick of any form button it calls onSubmit method, which we did not written, so page is refreshing
         // e.preventDefault() prevents the form from being submitted in the traditional way (which would cause a page reload). This is often used in combination with asynchronous operations or when you want to handle the form submission manually using JavaScript.
         onSubmit={(e) => e.preventDefault()}
-        className="bg-black z-10 absolute w-[350px] md:w-[430px] my-20 md:my-36 mx-auto right-0 left-0 text-white p-6 md:p-16 bg-opacity-75"
+        // className="bg-black z-10 absolute w-[350px] md:w-[430px] my-20 md:my-36 mx-auto right-0 left-0 text-white p-6 md:p-16 bg-opacity-75"
+        className="bg-black z-10 absolute w-[350px] md:w-[430px] p-6 md:p-16 text-white bg-opacity-75"
       >
         <h1 className="font-bold text-2xl md:text-3xl m-2 mb-7">
           {isSignInForm ? "Sign In" : "Sign Up"}
@@ -135,6 +139,7 @@ const Login = () => {
           </span>
         </p>
       </form>
+      </div>
     </div>
   );
 };
