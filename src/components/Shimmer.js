@@ -1,6 +1,6 @@
-import React from "react";
+import React from 'react';
 
-const Shimmer = () => {
+export const Shimmer = () => {
   const shimmerCards = [];
   for (let i = 0; i < 42; i++) {
     shimmerCards.push(
@@ -15,5 +15,3 @@ const Shimmer = () => {
     </div>
   );
 };
-
-export default Shimmer;

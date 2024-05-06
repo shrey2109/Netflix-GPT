@@ -1,7 +1,7 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 const simpleSearchSlice = createSlice({
-  name: "search",
+  name: 'search',
   //! we are using object here, because array takes more time to search than object
   initialState: {},
   reducers: {

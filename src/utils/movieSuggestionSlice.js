@@ -1,12 +1,12 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 const movieSuggestionSlice = createSlice({
   // name: "movieSuggestion",
-  name: "genreList",
+  name: 'genreList',
   initialState: {
     genreList: null,
     movieList: null,
-    movieName: "",
+    movieName: '',
     movieListByName: null,
   },
   reducers: {
@@ -21,10 +21,15 @@ const movieSuggestionSlice = createSlice({
     },
     addMovieListByName: (state, action) => {
       state.movieListByName = action.payload;
-    }
+    },
   },
 });
 
-export const { addGenre, addSuggestedMovies, addMovieName, addMovieListByName } = movieSuggestionSlice.actions;
+export const {
+  addGenre,
+  addSuggestedMovies,
+  addMovieName,
+  addMovieListByName,
+} = movieSuggestionSlice.actions;
 
 export default movieSuggestionSlice.reducer;

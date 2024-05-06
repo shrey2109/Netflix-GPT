@@ -1,20 +1,18 @@
-import React, { useRef, useState } from "react";
-import lang from "../utils/languageConstants";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 // import openai from "../utils/openai";
-import { MOVIE_GENRE_LIST } from "../utils/constants";
-import { addGenre, addMovieName } from "../utils/movieSuggestionSlice";
-import SimpleMovieSuggestions from "./SimpleMovieSuggestions";
 
-const GptSearchBar = () => {
+import { MOVIE_GENRE_LIST, lang, addGenre, addMovieName } from '../utils';
+import { SimpleMovieSuggestions } from '.';
+
+export const GptSearchBar = () => {
   const langKey = useSelector((store) => store.config.lang);
-  const [searchText, setSearchText] = useState("");
+  const [searchText, setSearchText] = useState('');
   const gptSearchText = useRef(null);
   const dispatch = useDispatch();
 
-  //! CODE FOR GPT SEARCH.
+  //! CODE FOR GPT SEARCH
   // const handleGptSearchClick = async () => {
-  //   console.log(gptSearchText.current.value);
   //   // Make an API Call to gpt and GPT movie result
 
   //   const gptQuery =
@@ -33,8 +31,7 @@ const GptSearchBar = () => {
   // };
 
   const handleGptSearchClick = async () => {
-    // console.log(gptSearchText.current.value.split(","));
-    const genreNameList = gptSearchText.current.value.split(",");
+    const genreNameList = gptSearchText.current.value.split(',');
     const genreNumList = genreNameList.map((gn) => {
       const foundGenre = MOVIE_GENRE_LIST.genres.find(
         (genre) => genre.name.toLowerCase() === gn.trim().toLowerCase()
@@ -47,19 +44,10 @@ const GptSearchBar = () => {
     });
 
     const newArray = genreNumList.filter((item) => item !== -1);
-    // console.log(newArray.join(","));
-
-    const data = await fetch(
-      process.env.REACT_APP_MOVIE_BY_GENRE + newArray.join(",")
-    );
-    const json = await data.json();
-
-    // console.log(json);
     dispatch(addGenre(newArray));
   };
 
   const handleSimpleMovieSuggestion = (e) => {
-    // console.log(e.target.value);
     setSearchText(e.target.value);
     dispatch(addMovieName(searchText));
   };
@@ -102,5 +90,3 @@ const GptSearchBar = () => {
     </div>
   );
 };
-
-export default GptSearchBar;

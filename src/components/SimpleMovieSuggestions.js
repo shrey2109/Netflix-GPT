@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { API_OPTIONS } from "../utils/constants";
-import MovieList from "./MovieList";
-import { cacheResults } from "../utils/simpleSearchSlice";
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-const SimpleMovieSuggestions = () => {
+import { API_OPTIONS, cacheResults } from '../utils';
+import { MovieList } from '.';
+
+export const SimpleMovieSuggestions = () => {
   const movieName = useSelector((store) => store.genreList.movieName);
-  // const [searchMovie, setSearchMovie] = useState([]);
   const [simpleMovieSuggestion, setSimpleMovieSuggestion] = useState([]);
 
   const simpleSearchCache = useSelector((store) => store.simpleSearch);
@@ -15,8 +14,6 @@ const SimpleMovieSuggestions = () => {
   useEffect(() => {
     //! DEBOUNCING
     const timer = setTimeout(() => {
-      // fetchMovieByName();
-
       if (simpleSearchCache[movieName]) {
         setSimpleMovieSuggestion(simpleSearchCache[movieName]);
       } else {
@@ -30,16 +27,13 @@ const SimpleMovieSuggestions = () => {
   }, [movieName]);
 
   const fetchMovieByName = async () => {
-    // console.log("MOVIE NAME : " + movieName);
     const data = await fetch(
-      //   "https://api.themoviedb.org/3/search/movie?query=munna%20bhai&include_adult=false&language=en-US&page=1",
-      "https://api.themoviedb.org/3/search/movie?query=" +
+      'https://api.themoviedb.org/3/search/movie?query=' +
         movieName +
-        "&language=en-US&page=1",
+        '&language=en-US&page=1',
       API_OPTIONS
     );
     const json = await data.json();
-    // console.log(json);
     setSimpleMovieSuggestion(json.results);
 
     //update cache
@@ -56,7 +50,7 @@ const SimpleMovieSuggestions = () => {
       {simpleMovieSuggestion.length > 1 && movieName.length > 0 && (
         <div className="relative z-20 p-5">
           <MovieList
-            title={"Searching Suggestions"}
+            title={'Searching Suggestions'}
             movies={simpleMovieSuggestion}
           />
         </div>
@@ -64,5 +58,3 @@ const SimpleMovieSuggestions = () => {
     </div>
   );
 };
-
-export default SimpleMovieSuggestions;

@@ -1,10 +1,10 @@
-import React from "react";
-import { MOVIE_GENRE_LIST } from "../utils/constants";
-import { useDispatch } from "react-redux";
-import { addGenre } from "../utils/movieSuggestionSlice";
-import SuggestedMovie from "./SuggestedMovie";
+import React from 'react';
+import { useDispatch } from 'react-redux';
 
-const GptMovieSuggestions = () => {
+import { MOVIE_GENRE_LIST, addGenre } from '../utils';
+import { SuggestedMovie } from '.';
+
+export const GptMovieSuggestions = () => {
   const dispatch = useDispatch();
 
   const handleMovieGenre = (id) => {
@@ -17,7 +17,6 @@ const GptMovieSuggestions = () => {
       {MOVIE_GENRE_LIST.genres.map((genre) => (
         <button
           key={genre.id}
-          // className="m-5 p-4 w-56 h-16 bg-purple-600 rounded-lg border-[3.5px] border-purple-300 text-white font-semibold text-lg bg-opacity-30"
           className="m-2 md:m-5 w-28 md:w-56 h-16 rounded-lg border-[2.5px] border-purple-300 text-purple-500 font-semibold text-md md:text-lg bg-opacity-30 hover:text-white hover:border-red-500"
           onClick={() => handleMovieGenre(genre.id)}
         >
@@ -27,5 +26,3 @@ const GptMovieSuggestions = () => {
     </div>
   );
 };
-
-export default GptMovieSuggestions;

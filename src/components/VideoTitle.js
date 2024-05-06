@@ -1,11 +1,13 @@
-import React from "react";
+import React from 'react';
 
-const VideoTitle = ({ title, overview }) => {
+export const VideoTitle = ({ title, overview }) => {
   return (
     <div className="md:pt-32 absolute text-white w-full aspect-video bg-gradient-to-r from-black">
       <div className="m-12">
-        <h1 className="text-md md:text-5xl font-bold w-1/2">{title}</h1>
-        <p className="hidden md:inline-block py-6 text-lg w-1/4 ">{overview}</p>
+        <h1 className="text-xl sm:text-4xl md:text-5xl font-bold md:w-1/2">
+          {title}
+        </h1>
+        <p className="hidden lg:inline-block py-6 text-lg w-1/2">{overview}</p>
         <div>
           <button className="m-2 p-1.5 px-3 md:p-3 md:w-32 bg-white text-black rounded-sm font-bold hover:text-red-500">
             ▷ Play
@@ -18,5 +20,3 @@ const VideoTitle = ({ title, overview }) => {
     </div>
   );
 };
-
-export default VideoTitle;

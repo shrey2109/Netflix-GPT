@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { API_OPTIONS } from "../utils/constants";
-import MovieList from "./MovieList";
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 
-const MovieDetail = () => {
+import { API_OPTIONS } from '../utils';
+import { MovieList } from '.';
+
+export const MovieDetail = () => {
   const [movieDetails, setMovieDetails] = useState({});
   const [similarMovieDetails, setSimilarMovieDetails] = useState({});
   const { movieId } = useParams();
@@ -14,19 +15,17 @@ const MovieDetail = () => {
 
   const fetchMovieDetail = async () => {
     const data = await fetch(
-      "https://api.themoviedb.org/3/movie/" + movieId,
+      'https://api.themoviedb.org/3/movie/' + movieId,
       API_OPTIONS
     );
     const json = await data.json();
-    console.log(json);
     setMovieDetails(json);
 
     const similardata = await fetch(
-      "https://api.themoviedb.org/3/movie/" + movieId + "/similar?page=1",
+      'https://api.themoviedb.org/3/movie/' + movieId + '/similar?page=1',
       API_OPTIONS
     );
     const similarjson = await similardata.json();
-    // console.log(similarjson);
     setSimilarMovieDetails(similarjson?.results);
   };
 
@@ -37,11 +36,12 @@ const MovieDetail = () => {
           <img
             alt="movieBg"
             src={
-              movieDetails.backdrop_path ?
-                "https://image.tmdb.org/t/p/original/" + movieDetails.backdrop_path
-                : "https://c8.alamy.com/comp/2RJ4F9E/film-slate-movie-clapper-board-on-yellow-background-with-shadow-and-copy-space-2RJ4F9E.jpg"
+              movieDetails.backdrop_path
+                ? 'https://image.tmdb.org/t/p/original/' +
+                  movieDetails.backdrop_path
+                : 'https://thumbs.dreamstime.com/blog/2018/07/turn-your-favorite-photo-epic-movie-poster-26441-image109473373.jpg'
             }
-            className="absolute -z-10 w-full h-screen object-cover md:h-auto"
+            className="absolute -z-10 w-full h-screen object-cover"
           ></img>
         )}
       </div>
@@ -51,21 +51,21 @@ const MovieDetail = () => {
             {movieDetails.title}
           </h1>
           <div className="pt-6 md:text-lg">
-            {movieDetails?.release_date?.slice(0, 4) + " • "}
-            {Math.floor(movieDetails?.runtime / 60)}h{" "}
+            {movieDetails?.release_date?.slice(0, 4) + ' • '}
+            {Math.floor(movieDetails?.runtime / 60)}h{' '}
             {movieDetails?.runtime -
               Math.floor(movieDetails?.runtime / 60) * 60 +
-              "m • "}
+              'm • '}
             {movieDetails?.spoken_languages
               ?.map((lang) => lang.english_name)
-              .join(" | ")}
+              .join(' | ')}
           </div>
-          <p className="pt-3 text-[16px] md:w-[30%] text-zinc-400">
+          <p className="pt-3 text-[16px] lg:w-[50%] max-h-44 sm:max-h-full sm:overflow-visible overflow-auto text-ellipsis text-zinc-400">
             {movieDetails.overview}
           </p>
 
           <div className="py-2 md:text-lg">
-            {movieDetails?.genres?.map((genre) => genre.name).join(" | ")}
+            {movieDetails?.genres?.map((genre) => genre.name).join(' | ')}
           </div>
           <div>
             <button className="m-2 p-1.5 px-3 md:p-3 md:w-72 bg-white text-black rounded-sm font-bold md:text-lg">
@@ -77,19 +77,11 @@ const MovieDetail = () => {
           </div>
         </div>
       </div>
-      {/* <div className="bg-black text-white pr-6">
-        <h1 className="text-3xl p-6">More Like This</h1>
-      </div> */}
       <div className="bg-black p-7">
         {similarMovieDetails.length > 0 && (
-          <MovieList title={"More Like This"} movies={similarMovieDetails} />
+          <MovieList title={'More Like This'} movies={similarMovieDetails} />
         )}
       </div>
     </div>
   );
 };
-
-export default MovieDetail;
-
-//* poster, genres, original lang, overview, release date, title, vote average
-//? popularity

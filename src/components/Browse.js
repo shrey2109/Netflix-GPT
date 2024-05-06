@@ -1,21 +1,18 @@
-import React from "react";
-import Header from "./Header";
-import useMoviesData from "../hooks/useMoviesData";
-import MainContainer from "./MainContainer";
-import SecondaryContainer from "./SecondaryContainer";
+import React from 'react';
 
-const Browse = () => {
+import useMoviesData from '../hooks/useMoviesData';
+import { Header, MainContainer, SecondaryContainer } from '.';
+
+export const Browse = () => {
   useMoviesData();
 
   return (
     <div>
       <Header />
-        <>
-          <MainContainer />
-          <SecondaryContainer />
-        </>
+      <>
+        <MainContainer />
+        <SecondaryContainer />
+      </>
     </div>
   );
 };
-
-export default Browse;

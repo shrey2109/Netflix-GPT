@@ -1,13 +1,13 @@
-import { useDispatch } from "react-redux";
-import { API_OPTIONS } from "../utils/constants";
-import { addNowPlayingMovies, addPopularMovies, addTopRatedMovies, addUpcomingMovies } from "../utils/moviesSlice";
-import { useEffect } from "react";
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+
+import { API_OPTIONS, addNowPlayingMovies, addPopularMovies, addTopRatedMovies, addUpcomingMovies } from '../utils';
 
 const useMoviesData = () => {
   const dispatch = useDispatch();
   const getNowPlayingMovies = async () => {
     const data = await fetch(
-      "https://api.themoviedb.org/3/movie/now_playing?page=1",
+      'https://api.themoviedb.org/3/movie/now_playing?page=1',
       API_OPTIONS
     );
     const json = await data.json();
@@ -16,16 +16,16 @@ const useMoviesData = () => {
 
   const getPopularMovies = async () => {
     const data = await fetch(
-      "https://api.themoviedb.org/3/movie/popular?page=1",
+      'https://api.themoviedb.org/3/movie/popular?page=1',
       API_OPTIONS
     );
     const json = await data.json();
     dispatch(addPopularMovies(json.results));
   };
-  
+
   const getTopRatedMovies = async () => {
     const data = await fetch(
-      "https://api.themoviedb.org/3/movie/top_rated?page=1",
+      'https://api.themoviedb.org/3/movie/top_rated?page=1',
       API_OPTIONS
     );
     const json = await data.json();
@@ -34,7 +34,7 @@ const useMoviesData = () => {
 
   const getUpcomingMovies = async () => {
     const data = await fetch(
-      "https://api.themoviedb.org/3/movie/upcoming?page=1",
+      'https://api.themoviedb.org/3/movie/upcoming?page=1',
       API_OPTIONS
     );
     const json = await data.json();

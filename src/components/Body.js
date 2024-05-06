@@ -1,49 +1,21 @@
-import React, { Suspense, lazy } from "react";
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import Login from "./Login";
-import Browse from "./Browse";
-import MovieDetail from "./MovieDetail";
-import ErrorPage from "./ErrorPage";
-import Shimmer from "./Shimmer";
-// import GptSearch from "./GptSearch";
+import React, { Suspense, lazy } from 'react';
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
-//* Previous routing
-// const appRouter = createBrowserRouter([
-//   {
-//     path: "/",
-//     element: <Body />,
-//     children: [
-//       {
-//         path: "browse",
-//         element: <Browse />,
-//       },
-//       {
-//         path: "search",
-//         element: <GptSearch />,
-//       },
-//       {
-//         path: "movieDetail/:movieId",
-//         element: <MovieDetail />,
-//       },
-//     ],
-//     errorElement: <ErrorPage />, // Render ErrorPage for unmatched routes within this parent route
-//   },
-// ]);
+import { Login, Browse, MovieDetail, ErrorPage, Shimmer } from '.';
 
-const GptSearch = lazy(() => import("./GptSearch"));
-
+const GptSearch = lazy(() => import('./GptSearch'));
 const appRouter = createBrowserRouter([
   {
-    path: "/",
+    path: '/',
     element: <Login />,
     errorElement: <ErrorPage />,
   },
   {
-    path: "/browse",
+    path: '/browse',
     element: <Browse />,
   },
   {
-    path: "/search",
+    path: '/search',
     // element: <GptSearch />,
     element: (
       <Suspense fallback={<Shimmer />}>
@@ -52,7 +24,7 @@ const appRouter = createBrowserRouter([
     ),
   },
   {
-    path: "/movieDetail/:movieId",
+    path: '/movieDetail/:movieId',
     element: <MovieDetail />,
   },
 ]);

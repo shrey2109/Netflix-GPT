@@ -1,9 +1,9 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 const configSlice = createSlice({
-  name: "config",
+  name: 'config',
   initialState: {
-    lang: "en",
+    lang: 'en',
   },
   reducers: {
     changeLanguage: (state, action) => {

@@ -1,14 +1,11 @@
-import React, { useEffect } from "react";
-import { onAuthStateChanged, signOut } from "firebase/auth";
-import { auth } from "../utils/firebase";
-import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { addUser, removeUser } from "../utils/userSlice";
-import { LOGO, SUPPORTED_LANGUAGES, USER_PROFILE } from "../utils/constants";
-import { toggleGptSearchView } from "../utils/gptSlice";
-import { changeLanguage } from "../utils/configSlice";
+import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { onAuthStateChanged, signOut } from 'firebase/auth';
 
-const Header = () => {
+import { auth, LOGO, SUPPORTED_LANGUAGES, USER_PROFILE, addUser, removeUser, toggleGptSearchView, changeLanguage } from '../utils';
+
+export const Header = () => {
   const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
   const gptPage = useSelector((store) => store.gpt.showGptSearch);
@@ -17,37 +14,33 @@ const Header = () => {
     signOut(auth)
       .then(() => {})
       .catch((error) => {
-        navigate("/error");
+        navigate('/error');
       });
   };
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
+    onAuthStateChanged(auth, (user) => {
       if (user) {
         //* User is signed in
         const { uid, email, displayName } = user;
         dispatch(addUser({ uid: uid, email: email, displayName: displayName }));
         const currentURL = document.URL;
-        // console.log("URL : " + currentURL);
         const part =
-          currentURL.split("/").length > 2 ? currentURL.split("/")[3] : "";
-        // console.log("PART : " + part);
-        if (!part) navigate("/browse");
+          currentURL.split('/').length > 2 ? currentURL.split('/')[3] : '';
+        if (!part) navigate('/browse');
       } else {
         //* User is signed out
         dispatch(removeUser());
-        navigate("/");
+        navigate('/');
       }
-
-      // return unsubscribe();
     });
   }, []);
 
   const handleGptSearchClick = () => {
     // toggle functionality for gpt search page
     dispatch(toggleGptSearchView());
-    if (!gptPage) navigate("/search");
-    else navigate("/browse");
+    if (!gptPage) navigate('/search');
+    else navigate('/browse');
   };
 
   const handleLanguageChange = (e) => {
@@ -56,7 +49,11 @@ const Header = () => {
 
   return (
     <div className="absolute z-10 w-full flex flex-col md:flex-row justify-between bg-gradient-to-b from-black">
-      <img src={LOGO} alt="logo" className="w-36 md:w-44 mx-auto md:mx-0 z-10"></img>
+      <img
+        src={LOGO}
+        alt="logo"
+        className="w-36 md:w-44 mx-auto md:mx-0 z-10"
+      ></img>
       {user && (
         <div className="p-2 md:mr-8 flex flex-col items-center">
           <div className="flex items-center">
@@ -76,14 +73,12 @@ const Header = () => {
               className="mr-2 p-1 md:p-2 px-4 md:w-52 md:font-semibold rounded-lg bg-purple-600 text-white hover:border-2 hover:bg-opacity-70"
               onClick={handleGptSearchClick}
             >
-              {gptPage ? "Home Page" : "GPT Search"}
+              {gptPage ? 'Home Page' : 'GPT Search'}
             </button>
             <img src={USER_PROFILE} alt="userImg" className="h-9 md:h-11"></img>
 
             <div className="">
-              <h1 className="text-purple-400 ml-2">
-                {user?.displayName}
-              </h1>
+              <h1 className="text-purple-400 ml-2">{user?.displayName}</h1>
               <button
                 className="font-bold text-red-500 ml-2"
                 onClick={handleSignOut}
@@ -97,5 +92,3 @@ const Header = () => {
     </div>
   );
 };
-
-export default Header;
