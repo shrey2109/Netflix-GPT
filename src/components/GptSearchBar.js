@@ -1,13 +1,13 @@
-import React, { useRef, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 // import openai from "../utils/openai";
 
-import { MOVIE_GENRE_LIST, lang, addGenre, addMovieName } from '../utils';
-import { SimpleMovieSuggestions } from '.';
+import { MOVIE_GENRE_LIST, lang, addGenre, addMovieName } from "../utils";
+import { SimpleMovieSuggestions } from ".";
 
 export const GptSearchBar = () => {
   const langKey = useSelector((store) => store.config.lang);
-  const [searchText, setSearchText] = useState('');
+  const [searchText, setSearchText] = useState("");
   const gptSearchText = useRef(null);
   const dispatch = useDispatch();
 
@@ -31,7 +31,7 @@ export const GptSearchBar = () => {
   // };
 
   const handleGptSearchClick = async () => {
-    const genreNameList = gptSearchText.current.value.split(',');
+    const genreNameList = gptSearchText.current.value.split("+");
     const genreNumList = genreNameList.map((gn) => {
       const foundGenre = MOVIE_GENRE_LIST.genres.find(
         (genre) => genre.name.toLowerCase() === gn.trim().toLowerCase()

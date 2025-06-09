@@ -1,20 +1,30 @@
-import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { onAuthStateChanged, signOut } from 'firebase/auth';
+import React, { useEffect } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { onAuthStateChanged, signOut } from "firebase/auth";
 
-import { auth, LOGO, SUPPORTED_LANGUAGES, USER_PROFILE, addUser, removeUser, toggleGptSearchView, changeLanguage } from '../utils';
+import {
+  auth,
+  LOGO,
+  SUPPORTED_LANGUAGES,
+  USER_PROFILE,
+  addUser,
+  removeUser,
+  toggleGptSearchView,
+  changeLanguage,
+} from "../utils";
 
 export const Header = () => {
   const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
   const gptPage = useSelector((store) => store.gpt.showGptSearch);
   const navigate = useNavigate();
+  const location = useLocation();
   const handleSignOut = () => {
     signOut(auth)
       .then(() => {})
       .catch((error) => {
-        navigate('/error');
+        navigate("/error");
       });
   };
 
@@ -26,21 +36,34 @@ export const Header = () => {
         dispatch(addUser({ uid: uid, email: email, displayName: displayName }));
         const currentURL = document.URL;
         const part =
-          currentURL.split('/').length > 2 ? currentURL.split('/')[3] : '';
-        if (!part) navigate('/browse');
+          currentURL.split("/").length > 2 ? currentURL.split("/")[3] : "";
+        if (!part) navigate("/browse");
       } else {
         //* User is signed out
         dispatch(removeUser());
-        navigate('/');
+        navigate("/");
       }
     });
   }, []);
 
+  useEffect(() => {
+    console.log("Current path:", location.pathname);
+
+    if (location.pathname === "/search") {
+      // your logic for /movies page
+      dispatch(toggleGptSearchView(true));
+    }
+  }, [location.pathname]);
+
   const handleGptSearchClick = () => {
     // toggle functionality for gpt search page
-    dispatch(toggleGptSearchView());
-    if (!gptPage) navigate('/search');
-    else navigate('/browse');
+    if (!gptPage) {
+      navigate("/search");
+      dispatch(toggleGptSearchView(true));
+    } else {
+      navigate("/browse");
+      dispatch(toggleGptSearchView(false));
+    }
   };
 
   const handleLanguageChange = (e) => {
@@ -49,11 +72,13 @@ export const Header = () => {
 
   return (
     <div className="absolute z-10 w-full flex flex-col md:flex-row justify-between bg-gradient-to-b from-black">
-      <img
-        src={LOGO}
-        alt="logo"
-        className="w-36 md:w-44 mx-auto md:mx-0 z-10"
-      ></img>
+      <Link to={"/browse"}>
+        <img
+          src={LOGO}
+          alt="logo"
+          className="w-36 md:w-44 mx-auto md:mx-0 z-10"
+        ></img>
+      </Link>
       {user && (
         <div className="p-2 md:mr-8 flex flex-col items-center">
           <div className="flex items-center">
@@ -73,9 +98,13 @@ export const Header = () => {
               className="mr-2 p-1 md:p-2 px-4 md:w-52 md:font-semibold rounded-lg bg-purple-600 text-white hover:border-2 hover:bg-opacity-70"
               onClick={handleGptSearchClick}
             >
-              {gptPage ? 'Home Page' : 'GPT Search'}
+              {gptPage ? "Home Page" : "GPT Search"}
             </button>
-            <img src={USER_PROFILE} alt="userImg" className="h-9 md:h-11"></img>
+            <img
+              src={USER_PROFILE}
+              alt="userImg"
+              className="h-9 md:h-11 filter hue-rotate-[-20deg] saturate-150 contrast-125"
+            ></img>
 
             <div className="">
               <h1 className="text-purple-400 ml-2">{user?.displayName}</h1>

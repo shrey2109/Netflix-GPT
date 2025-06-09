@@ -1,17 +1,18 @@
-import React, { useRef, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useRef, useState } from "react";
+import { useDispatch } from "react-redux";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   updateProfile,
-} from 'firebase/auth';
+} from "firebase/auth";
 
-import { checkValidData, BG_URL, auth, addUser } from '../utils';
-import { Header } from '.';
+import { checkValidData, BG_URL, auth, addUser } from "../utils";
+import { Header } from ".";
 
 export const Login = () => {
   const dispatch = useDispatch();
   const [isSignInForm, setIsSignInForm] = useState(true);
+  const [dummyCredentials, setDummyCredentials] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
 
   // Rather than creating state variables for email and password -> WE WILL USE useRef
@@ -52,7 +53,7 @@ export const Login = () => {
         .catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;
-          setErrorMessage(errorCode + ' - ' + errorMessage);
+          setErrorMessage(errorCode + " - " + errorMessage);
         });
     } else {
       // LogIn Logic
@@ -65,13 +66,17 @@ export const Login = () => {
         .catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;
-          setErrorMessage(errorCode + ' - ' + errorMessage);
+          setErrorMessage(errorCode + " - " + errorMessage);
         });
     }
   };
 
   const toggleSignInForm = () => {
     setIsSignInForm(!isSignInForm);
+  };
+
+  const toggleShowDummyCredentials = () => {
+    setDummyCredentials(true);
   };
 
   return (
@@ -93,7 +98,7 @@ export const Login = () => {
           className="bg-black z-10 absolute w-[350px] md:w-[430px] p-6 md:p-16 text-white bg-opacity-75"
         >
           <h1 className="font-bold text-2xl md:text-3xl m-2 mb-7">
-            {isSignInForm ? 'Sign In' : 'Sign Up'}
+            {isSignInForm ? "Sign In" : "Sign Up"}
           </h1>
           {!isSignInForm && (
             <input
@@ -120,16 +125,26 @@ export const Login = () => {
             className="m-2 mt-8 p-3 bg-red-600 w-full rounded-sm font-semibold hover:bg-red-700"
             onClick={handleButtonClick}
           >
-            {isSignInForm ? 'Sign In' : 'Sign Up'}
+            {isSignInForm ? "Sign In" : "Sign Up"}
           </button>
+          <p className="italic text-gray-400 pl-5">
+            <span
+              className="cursor-pointer hover:underline"
+              onClick={toggleShowDummyCredentials}
+            >
+              {!dummyCredentials
+                ? "Use dummy credentials to explore..."
+                : "Email : hellothere@explore.com Password : helloThere1"}
+            </span>
+          </p>
           <p className="p-2 pt-6 md:pt-16 text-white ">
             <span
               className="cursor-pointer hover:underline"
               onClick={toggleSignInForm}
             >
               {isSignInForm
-                ? 'New to Netflix? Sign Up'
-                : 'Already a User? Sign In'}{' '}
+                ? "New to Netflix? Sign Up"
+                : "Already a User? Sign In"}{" "}
               now
             </span>
           </p>

@@ -1,7 +1,7 @@
-import React from 'react';
+import React from "react";
 
-import useMoviesData from '../hooks/useMoviesData';
-import { Header, MainContainer, SecondaryContainer } from '.';
+import useMoviesData from "../hooks/useMoviesData";
+import { Header, MainContainer, SecondaryContainer } from ".";
 
 export const Browse = () => {
   useMoviesData();
